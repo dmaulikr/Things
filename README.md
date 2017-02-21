@@ -1,2 +1,2 @@
 # Things
-A way to save some things
+A way to save some things on iOS
