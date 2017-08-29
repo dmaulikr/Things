@@ -9,9 +9,8 @@
 import UIKit
 import FirebaseDatabase
 
-class ThingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NewThingCellDelegate {
+class ThingsViewController: EDTableViewController, UITableViewDataSource, UITableViewDelegate, NewThingCellDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet var emptyView: UIView!
     
     var datasource: [Objectified] = []
@@ -25,6 +24,8 @@ class ThingsViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        type = .things
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -207,29 +208,40 @@ class ThingsViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteRowAction = UITableViewRowAction(style: .default, title: "Delete") { (action, actionIndexPath) -> Void in
             
-            guard let thing = self.datasource[indexPath.row] as? Thing else { fatalError() }
-            let cachedThing = thing
-            
-            self.datasource.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .top)
-            
-            self.coordinator.delete(thing: thing, closure: { 
-                self.toggleEmptyView()
-                if indexPath == self.selectedIndexPath {
-                    self.selectedIndexPath = nil
-                }
-                
-            }, errorBlock: { (e) in
-                self.showAlert(title: "Failed Delete", message: e)
-                
-                DispatchQueue.main.async {
-                    self.datasource.insert(cachedThing, at: indexPath.row)
-                    tableView.insertRows(at: [indexPath], with: .top)
-                }
-            })
+            let alert = UIAlertController(title: "Are you sure you want to delete this Thing?", message: "This cannot be undone!", preferredStyle: .alert)
+            let yes = UIAlertAction(title: "Yes, Delete", style: .destructive) { action in
+                self.deleteThing(at: indexPath)
+            }
+            let no = UIAlertAction(title: "No, Stay", style: .cancel, handler: nil)
+            alert.addAction(yes)
+            alert.addAction(no)
+            self.present(alert, animated: true, completion: nil)
         }
         
         return [deleteRowAction]
+    }
+    
+    fileprivate func deleteThing(at indexPath: IndexPath) {
+        guard let thing = self.datasource[indexPath.row] as? Thing else { fatalError() }
+        let cachedThing = thing
+        
+        self.datasource.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .top)
+        
+        self.coordinator.delete(thing: thing, closure: {
+            self.toggleEmptyView()
+            if indexPath == self.selectedIndexPath {
+                self.selectedIndexPath = nil
+            }
+            
+        }, errorBlock: { (e) in
+            self.showAlert(title: "Failed Delete", message: e)
+            
+            DispatchQueue.main.async {
+                self.datasource.insert(cachedThing, at: indexPath.row)
+                self.tableView.insertRows(at: [indexPath], with: .top)
+            }
+        })
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

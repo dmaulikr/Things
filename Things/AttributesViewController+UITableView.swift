@@ -52,7 +52,7 @@ extension AttributesViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.newAttributeTextView.delegate = self
             cell.newAttributeTextView.text = textAttribute.text
-            cell.thingDescriptionLabel.text = textAttribute.created
+            cell.thingDescriptionLabel.text = textAttribute.created ?? Date().string
             
             return cell
         }
@@ -118,7 +118,14 @@ extension AttributesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteRowAction = UITableViewRowAction(style: .default, title: "Delete") { (action, actionIndexPath) in
-            self.deleteAttribute(at: indexPath)
+            let alert = UIAlertController(title: "Are you sure you want to delete this Attribute?", message: "This cannot be undone!", preferredStyle: .alert)
+            let yes = UIAlertAction(title: "🐍 Yessssssss", style: .destructive) { action in
+                self.deleteAttribute(at: indexPath)
+            }
+            let no = UIAlertAction(title: "No Keep it! 😰", style: .cancel, handler: nil)
+            alert.addAction(yes)
+            alert.addAction(no)
+            self.present(alert, animated: true, completion: nil)
         }
         
         return [deleteRowAction]

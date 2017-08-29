@@ -31,7 +31,11 @@
         
         print(thing.dict())
         
-        thingRef(with: thing.id).updateChildValues(thing.dict()) { (error, ref) in
+        guard let id = thing.id else {
+            fatalError()
+        }
+        
+        thingRef(with: id).updateChildValues(thing.dict()) { (error, ref) in
             guard error == nil else {
                 errorBlock(error!.localizedDescription)
                 return
@@ -45,7 +49,11 @@
                 closure: @escaping () -> Void,
                 errorBlock: @escaping (_ e: String) -> Void) {
         
-        thingRef(with: thing.id).removeValue { (error, ref) in
+        guard let id = thing.id else {
+            fatalError()
+        }
+        
+        thingRef(with: id).removeValue { (error, ref) in
             if error != nil {
                 errorBlock(error!.localizedDescription)
             

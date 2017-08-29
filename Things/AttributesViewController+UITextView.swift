@@ -11,8 +11,6 @@ import UIKit
 extension AttributesViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        guard let indexPath = activeTextViewIndexPath else { return }
-        
         tableView.beginUpdates()
         tableView.endUpdates()
     }
@@ -23,8 +21,6 @@ extension AttributesViewController: UITextViewDelegate {
         
         activeTextView = textView
         oldText = activeTextView!.text
-        
-//        tableView.isScrollEnabled = false
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -32,7 +28,5 @@ extension AttributesViewController: UITextViewDelegate {
         oldText = nil
         
         setBarButtonItems(.thingButtons)
-        
-//        tableView.isScrollEnabled = true
     }
 }

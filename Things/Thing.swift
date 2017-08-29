@@ -17,7 +17,7 @@ class Thing: NSObject, Objectified {
     var attributes: [Attribute] = []
     
     var objectType: ObjectType = .thing
-    var id: String!
+    var id: String?
     var name: String!
     
     var created: String?

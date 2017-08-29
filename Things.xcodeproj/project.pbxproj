@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		014302D21F54F9730009F32E /* EDTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014302D11F54F9730009F32E /* EDTableViewController.swift */; };
 		0173FC191E7F94AC006C8DE0 /* IconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173FC181E7F94AC006C8DE0 /* IconCell.swift */; };
 		01BF2D271E7DE98D00131A63 /* AttributeCellProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BF2D261E7DE98D00131A63 /* AttributeCellProperties.swift */; };
 		12A32B061F45738200F3BF0A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12A32B051F45738200F3BF0A /* GoogleService-Info.plist */; };
@@ -73,6 +74,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		014302D11F54F9730009F32E /* EDTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDTableViewController.swift; sourceTree = "<group>"; };
 		0173FC181E7F94AC006C8DE0 /* IconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconCell.swift; sourceTree = "<group>"; };
 		01BF2D261E7DE98D00131A63 /* AttributeCellProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeCellProperties.swift; sourceTree = "<group>"; };
 		12A32B051F45738200F3BF0A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			children = (
 				23EE32431E5E2CB7007B5E1B /* SettingsViewController.swift */,
 				23EE325B1E5E2CC2007B5E1B /* UIViewController+.swift */,
+				014302D11F54F9730009F32E /* EDTableViewController.swift */,
 				01BF2D281E7DE9DC00131A63 /* Splash ViewControllers */,
 				01BF2D251E7DE94D00131A63 /* SplitViewController */,
 				01BF2D1F1E7DE7E300131A63 /* ThingsViewController */,
@@ -579,6 +582,7 @@
 				23EE325C1E5E2CC2007B5E1B /* ThingsViewController.swift in Sources */,
 				23EE32541E5E2CB7007B5E1B /* Thing.swift in Sources */,
 				23EE32551E5E2CB7007B5E1B /* ThingCell.swift in Sources */,
+				014302D21F54F9730009F32E /* EDTableViewController.swift in Sources */,
 				23EE32151E5E2BCC007B5E1B /* AppState.swift in Sources */,
 				23EE324C1E5E2CB7007B5E1B /* LoginViewController.swift in Sources */,
 				23EE32341E5E2BEB007B5E1B /* FontAwesome.swift in Sources */,

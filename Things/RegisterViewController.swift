@@ -21,7 +21,7 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.preferredContentSize.height = 278
+        self.preferredContentSize.height = 340
         
         passwordField.delegate = self
         confirmPasswordField.delegate = self

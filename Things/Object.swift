@@ -14,7 +14,7 @@ class Object: Objectified {
     var updated: String?
     
     var objectType: ObjectType
-    var id: String!
+    var id: String?
     var name: String!
     
     init(type: ObjectType) {

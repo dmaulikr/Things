@@ -21,7 +21,7 @@ class TextAttribute: Attribute, TextManager {
     var type: AttributeType = .text
     var parent: String!
     
-    var id: String!
+    var id: String?
     
     var objectType: ObjectType = .attribute
     
@@ -54,7 +54,7 @@ class TextAttribute: Attribute, TextManager {
     
     required init(from object: Object) {
         text = ""
-        id = object.id
+        id = newID()
         objectType = object.objectType
     }
     
@@ -79,7 +79,7 @@ class TextAttribute: Attribute, TextManager {
         self.updated = dict["updated"] as? String
         
         self.objectType = .attribute
-        self.id = dict["id"] as! String
+        self.id = dict["id"] as? String
         self.parent = dict["parent"] as! String
     }
 }

@@ -14,13 +14,11 @@ enum AttributesButtonStyle {
     case done(backButtonHidden: Bool)
 }
 
-class AttributesViewController: UIViewController {
+class AttributesViewController: EDTableViewController, UITextFieldDelegate {
     
     //MARK: Declarations
     
-    @IBOutlet var tableView: UITableView!
     @IBOutlet var iconImageView: UIImageView!
-    @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
     
     var imageBarButtonItem: UIBarButtonItem!
     var textBarButtonItem: UIBarButtonItem!
@@ -51,18 +49,24 @@ class AttributesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerForKeyboardNotifications()
+        type = .attributes
         
         setTableView()
         setBarButtonItems(.thingButtons)
         
-        setAttributesObservers()
-        
         setIcon()
     }
     
-    deinit {
-        deregisterFromKeyboardNotifications()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setAttributesObservers()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        attributeAddedObserver = nil
+        attributeChangedObserver = nil
+        attributeRemovedObserver = nil
     }
     
     private func setAttributesObservers() {
@@ -71,7 +75,7 @@ class AttributesViewController: UIViewController {
         }
         
         guard let thing = thing else {
-            fatalError()
+            return
         }
         
         let path = "/humans/\(uid)/things/\(thing.id!)/attributes/"
@@ -137,48 +141,6 @@ class AttributesViewController: UIViewController {
         }
         
         return nil
-    }
-    
-    private func insert(_ attribute: Attribute, atBeginning: Bool) {
-        
-        guard let thing = thing else { return }
-        
-        DispatchQueue.main.async {
-            self.tableView.beginUpdates()
-            
-            if atBeginning {
-                if thing.attributes.count == 0 {
-                    thing.attributes.append(attribute)
-                    
-                } else {
-                    thing.attributes.insert(attribute, at: 0)
-                }
-                self.tableView.insertRows(at: [firstIndexPath], with: .fade)
-                
-            } else {
-                thing.attributes.append(attribute)
-                
-                let lastIndex = IndexPath(row: thing.attributes.count - 1, section: 0)
-                self.tableView.insertRows(at: [lastIndex], with: .automatic)
-            }
-            
-            self.tableView.endUpdates()
-        }
-    }
-    
-    private func removeNewTextAttributes() {
-        guard let thing = self.thing else {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            thing.attributes = thing.attributes.filter { attribute -> Bool in
-                return attribute.id != nil ?? ""
-            }
-            
-            let firstSection = IndexSet(integer: 0)
-            self.tableView.reloadSections(firstSection, with: .fade)
-        }
     }
     
     private func insert(_ attribute: Attribute) {
@@ -255,7 +217,14 @@ class AttributesViewController: UIViewController {
                         
                     } else {
                         let exists: Bool = thing.attributes.contains { existingAttribute in
-                            return existingAttribute.id ?? "" == attribute.id
+                            
+                            guard let id = existingAttribute.id else {
+                                return false
+                            }
+                            
+                            let idsAreTheSame = id == attribute.id
+                            
+                            return idsAreTheSame
                         }
                         
                         if exists {
@@ -284,8 +253,6 @@ class AttributesViewController: UIViewController {
             
             self.tableView.endUpdates()
         }
-        
-        self.removeNewTextAttributes()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -423,6 +390,7 @@ class AttributesViewController: UIViewController {
         
         guard let thing = self.thing else { return }
         guard let activeTextView = activeTextView else { return }
+        activeTextView.delegate = self
         guard let indexPath = activeTextViewIndexPath else { return }
         
         if activeTextView.text == "" {
@@ -470,7 +438,7 @@ class AttributesViewController: UIViewController {
     
     private func save(_ attribute: Attribute) {
         coordinator.save(attribute, closure: {
-            self.insert(attribute)
+            self.removeNewTextAttributes()
         }, errorBlock: { e in
             self.showAlert(title: "Attribute Error", message: e)
         })
@@ -497,66 +465,90 @@ class AttributesViewController: UIViewController {
             
             self.tableView.endUpdates()
             
-            self.scrollToLastRow() {
-                guard let newAttributeCell = self.tableView.cellForRow(at: lastIndex) as? AttributeTextCell else {
-                    print("why?")
-                    fatalError()
-                }
-                
-                newAttributeCell.newAttributeTextView.text = ""
-                newAttributeCell.newAttributeTextView.becomeFirstResponder()
+            guard let textCell = self.lastCell() as? AttributeTextCell else {
+                fatalError()
             }
+            
+            textCell.newAttributeTextView.text = ""
+            textCell.newAttributeTextView.becomeFirstResponder()
+            
+            self.tableView.scrollToRow(at: lastIndex, at: .none, animated: true)
         }
     }
     
-    private func scrollToLastRow(then completion: @escaping ()->()) {
+    fileprivate func lastCell() -> UITableViewCell {
+        guard let thing = self.thing else { fatalError() }
+        let i = thing.attributes.count - 1
+        let lastIndex = IndexPath(row: i, section: 0)
         
-        UIView.animate(withDuration: 0.3, animations: {
-            let bottomOffset = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.size.height)
-            self.tableView.setContentOffset(bottomOffset, animated: false)
+        guard let cell = self.tableView.cellForRow(at: lastIndex) else {
+            let cellOffset = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.size.height)
+            self.tableView.setContentOffset(cellOffset, animated: false)
             
-        }) { (finished) in
-            completion()
+            return tableView.cellForRow(at: lastIndex)!
         }
+        
+        return cell
     }
     
-    func registerForKeyboardNotifications(){
-        //Adding notifies on keyboard appearing
-        NotificationCenter.default.addObserver(self, selector: #selector(AttributesViewController.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+    fileprivate func removeCell(at i: Int) {
+        let index = IndexPath(row: i, section: 0)
+        tableView.deleteRows(at: [index], with: .fade)
     }
     
-    func deregisterFromKeyboardNotifications(){
-        //Removing notifies on keyboard appearing
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-    }
-    
-    func keyboardNotification(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
-            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
-            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
-            let animationCurve = UIViewAnimationOptions(rawValue: animationCurveRaw)
+    private func removeNewTextAttributes() {
+        guard let thing = self.thing else {
+            return
+        }
+        
+        DispatchQueue.main.async {
             
-            if endFrame?.origin.y ?? 0.0 >= UIScreen.main.bounds.size.height {
-                self.keyboardHeightLayoutConstraint?.constant = 0.0
-            } else {
-                guard let height = endFrame?.size.height else {
-                    self.keyboardHeightLayoutConstraint?.constant = 0.0
-                    return
+            var indexes: [IndexPath] = []
+            
+            thing.attributes = thing.attributes.filter { attribute -> Bool in
+                
+                guard
+                    let id = attribute.id,
+                    let i = thing.attributes.index(where: { (attr) -> Bool in
+                        guard
+                            let id = attribute.id,
+                            let _id = attr.id
+                            else {
+                                return true
+                        }
+                        
+                        return id == _id
+                    })
+                    else {
+                        
+                        return false
                 }
                 
-                self.keyboardHeightLayoutConstraint?.constant = height
+                guard id != "" else {
+                    indexes.append(IndexPath(row: i, section: 0))
+                    return false
+                }
+                
+                switch attribute.type {
+                case .image:
+                    indexes.append(IndexPath(row: i, section: 0))
+                    return false
+                case .text:
+                    let textAttribute = attribute as! TextAttribute
+                    if textAttribute.text == nil ?? "" {
+                        indexes.append(IndexPath(row: i, section: 0))
+                        return false
+                    }
+                }
+                
+                return true
             }
-            UIView.animate(withDuration: duration,
-                           delay: TimeInterval(0),
-                           options: animationCurve,
-                           animations: { self.view.layoutIfNeeded() },
-                           completion: { bool in
-                            guard let index = self.activeTextViewIndexPath else { return }
-                            self.tableView.scrollToRow(at: index, at: .bottom, animated: true)
-            }
-            )
+            
+            self.tableView.deleteRows(at: indexes, with: .fade)
         }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        finishEditingTextAttribute()
     }
 }

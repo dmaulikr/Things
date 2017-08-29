@@ -13,7 +13,7 @@ protocol Named {
 }
 
 protocol Identified: Named, Dated {
-    var id: String! { get set }
+    var id: String? { get set }
 }
 
 struct Identifier: Equatable, Dated {

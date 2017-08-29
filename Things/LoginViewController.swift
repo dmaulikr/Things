@@ -17,12 +17,6 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     var coordinator: Coordinator!
     var authHandler: AuthStateDidChangeListenerHandle!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.preferredContentSize.height = 202
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

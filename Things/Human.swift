@@ -21,7 +21,7 @@ struct Human: Identified {
     }()
 
     //MARK: Protocol: Identified
-    var id: String!
+    var id: String?
     var name: String!
     
     var created: String?

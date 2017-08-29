@@ -38,7 +38,7 @@ class ImageAttribute: Attribute, ImageManager {
     
     var parent: String!
     
-    var id: String!
+    var id: String?
     var name: String!
     
     var created: String?
