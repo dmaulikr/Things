@@ -7,30 +7,27 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class AppState {
     
     static let shared = AppState()
     
-    var signedIn = false
-    
-    private static let accessTokenKey = "accessKey"
-    private static let refreshTokenKey = "refreshToken"
-    private static let usernameKey = "username"
-    
-    var username: String? {
-        get { return UserDefaults.standard.string(forKey: AppState.usernameKey) }
-        set { UserDefaults.standard.set(newValue, forKey: AppState.usernameKey) }
+    var signedIn = false {
+        didSet {
+            if signedIn {
+                let email = Auth.auth().currentUser?.email
+                let uid = Auth.auth().currentUser?.uid
+                set(email, uid: uid)
+            }
+        }
     }
     
-    var accessToken: String? {
-        get { return UserDefaults.standard.string(forKey: AppState.accessTokenKey) }
-        set { UserDefaults.standard.set(newValue, forKey: AppState.accessTokenKey) }
-    }
+    var email: String?
+    var uid: String?
     
-    var refreshToken: String? {
-        get { return UserDefaults.standard.string(forKey: AppState.refreshTokenKey) }
-        set { UserDefaults.standard.set(newValue, forKey: AppState.refreshTokenKey) }
+    private func set(_ email: String?, uid: String?) {
+        self.email = email
+        self.uid = uid
     }
-    
 }

@@ -41,7 +41,8 @@ extension AttributesViewController: UITableViewDelegate, UITableViewDataSource {
             cell.thingImageView.layer.borderColor = UIColor.darkGray.cgColor
             cell.thingImageView.layer.borderWidth = 1
             cell.imageProgressView.isHidden = true
-//            cell.thingDescriptionLabel.text = imageAttribute.id.dateCreated?.string
+            cell.thingDescriptionLabel.text = imageAttribute.created
+            
             return cell
             
         case .text:
@@ -52,12 +53,12 @@ extension AttributesViewController: UITableViewDelegate, UITableViewDataSource {
             cell.newAttributeTextView.delegate = self
             cell.newAttributeTextView.text = textAttribute.text
             cell.thingDescriptionLabel.text = textAttribute.created
+            
             return cell
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+    private func rowHeight(for indexPath: IndexPath) -> CGFloat {
         guard let thing = self.thing else {
             fatalError()
         }
@@ -73,6 +74,14 @@ extension AttributesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return height
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return rowHeight(for: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return rowHeight(for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -94,7 +103,6 @@ extension AttributesViewController: UITableViewDelegate, UITableViewDataSource {
         guard let _ = tableView.headerView(forSection: section) else {
             return 64
         }
-        
         
         return UITableViewAutomaticDimension
     }

@@ -17,7 +17,9 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loggedInAsLabel.text = "Logged in as \(AppState.shared.username ?? "SOMEONE 😰 (We don't know)")"
+        self.preferredContentSize.height = self.tableView.contentSize.height + self.navigationController!.navigationBar.frame.height + 44
+        
+        loggedInAsLabel.text = "Logged in as \(AppState.shared.email ?? "SOMEONE 😰 (We don't know)")"
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -30,22 +32,19 @@ class SettingsViewController: UITableViewController {
     }
     
     func signOut() {
-        coordinator.logout() { success in
-            
-            if success {
-                guard let splash = storyboard?.instantiateViewController(withIdentifier: "SplashViewController") else {
-                    self.showAlert(withTitle: "Could not find the Splash Screen", message: "It's lost in the sci-fi thought realm somewhere....")
-                    return
-                }
-                
-                self.present(splash, animated: true, completion: {
-                    let window = UIApplication.shared.windows.first
-                    window?.rootViewController?.removeFromParentViewController()
-                })
-                
-            } else {
-                showAlert(withTitle: "Can't Logout", message: "Could not logout for whatever reason... Sorry, you're stuck with us! 😹")
+        coordinator.logout(completion: { 
+            guard let splash = self.storyboard?.instantiateViewController(withIdentifier: "SplashViewController") else {
+                self.showAlert(title: "Could not find the Splash Screen", message: "It's lost in the sci-fi thought realm somewhere....")
+                return
             }
+            
+            self.present(splash, animated: true, completion: {
+                let window = UIApplication.shared.windows.first
+                window?.rootViewController?.removeFromParentViewController()
+            })
+            
+        }) { e in
+            self.showAlert(title: "Can't Logout", message: "Could not logout for whatever reason... Sorry, you're stuck with us! 😹")
         }
     }
     

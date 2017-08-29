@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 enum AttributeType: Int {
     case text
@@ -15,9 +16,20 @@ enum AttributeType: Int {
 
 protocol Attribute: Objectified {
     var type: AttributeType { get }
-    var parent: String { get }
+    var parent: String! { get }
     
     func dict() -> [String : Any]
     
     init(from dict: [String : Any])
+}
+
+extension Attribute {
+    func ref() -> DatabaseReference {
+        print(parent)
+        return Database.database().reference(withPath: "/humans/\(AppState.shared.uid!)/things/\(parent)/attributes/\(id)")
+    }
+    
+    func newID() -> String {
+        return ref().childByAutoId().key
+    }
 }

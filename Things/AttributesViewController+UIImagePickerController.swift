@@ -56,19 +56,23 @@ extension AttributesViewController: UIImagePickerControllerDelegate, UINavigatio
         
         picker.dismiss(animated: true) {
             let newObject = Object(type: .attribute)
-            var imageAttribute = ImageAttribute(from: newObject)
+            let imageAttribute = ImageAttribute(from: newObject)
             
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             imageAttribute.image = image
             
-            guard let _thing = self.thing else {
-//                print("attribute's parent is nil")
+            guard let thing = self.thing else {
                 fatalError()
             }
             
-//            self.coordinator.save(thing: _thing, with: { (success) in
-//                
-//            })
+            thing.attributes.append(imageAttribute)
+            
+            self.coordinator.save(thing, closure: { newThing in
+                print("Do what needs done.")
+                
+            }, errorBlock: { e in
+                print("Do what needs done.")
+            })
         }
     }
     

@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import CoreData
-import Just
+import Firebase
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,43 +19,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
+        FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
         coordinator = Coordinator()
-        
         UITabBar.appearance().tintColor = UIColor.purple
-        application.registerForRemoteNotifications()
         
-        if AppState.shared.accessToken == nil {
-            setRootViewController(showInitialViewController: false)
-        
-        } else {
-            let check = Just.get(Coordinator.baseURL + "/authcheck", headers: coordinator.authHeader())
-            
-            if check.ok {
-                AppState.shared.signedIn = true
-                
-                setRootViewController(showInitialViewController: true)
-                
-            } else {
-                setRootViewController(showInitialViewController: false)
-            }
-        }
-        
-        return true
-    }
-    
-    private func setRootViewController(showInitialViewController shouldShowInitialViewController: Bool) {
         let storyboard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
-        
-        if shouldShowInitialViewController {
+        if Auth.auth().currentUser != nil {
+            // User is signed in. Show All The Things.
+            AppState.shared.signedIn = true
+            
             let initialViewController = storyboard.instantiateInitialViewController()
             self.window?.rootViewController = initialViewController
-            
+        
         } else {
+            // User not signed in. Show Splash page
+            AppState.shared.signedIn = false
+            
             guard let splashViewController = storyboard.instantiateViewController(withIdentifier: "SplashViewController") as? SplashViewController else { fatalError() }
             
             splashViewController.coordinator = coordinator
             self.window?.rootViewController = splashViewController
         }
+        
+        return true
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

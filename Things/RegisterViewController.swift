@@ -7,29 +7,51 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UITableViewController, UITextFieldDelegate {
     
-    @IBOutlet var usernameField: UITextField!
+    @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var confirmPasswordField: UITextField!
     
     var coordinator: Coordinator!
+    var authHandler: AuthStateDidChangeListenerHandle!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        usernameField.delegate = self
+        self.preferredContentSize.height = 278
+        
         passwordField.delegate = self
         confirmPasswordField.delegate = self
         
-        usernameField.becomeFirstResponder()
+        emailField.becomeFirstResponder()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        authHandler = Auth.auth().addStateDidChangeListener { auth, user in
+            guard auth.currentUser != nil else {
+                AppState.shared.signedIn = false
+                return
+            }
+            
+            AppState.shared.signedIn = true
+            self.performSegue(withIdentifier: "registerSegue", sender: nil)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(authHandler)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == usernameField {
+        if textField == emailField {
             passwordField.becomeFirstResponder()
-        
+            
         } else if textField == passwordField {
             confirmPasswordField.becomeFirstResponder()
             
@@ -45,34 +67,38 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private func register() {
-        guard passwordField.text == confirmPasswordField.text else { return }
-        guard let username = usernameField.text, let password = passwordField.text else { return }
-        
-        coordinator.register(username: username, password: password) { success in
+        guard passwordField.text == confirmPasswordField.text else {
+            showAlert(title: "Passwords do not match", message: "Please reenter your passwords and try again.")
             
-            if success {
-                
-                self.coordinator.login(username: username, password: password, completion: {
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "registerSegue", sender: nil)
-                    }
-                    
-                }, errorBlock: { errorString in
-                    DispatchQueue.main.async {
-                        self.showAlert(withTitle: "Login Failed", message: errorString)
-                    }
-                })
-                
-            } else {
-                DispatchQueue.main.async {
-                    self.showAlert(withTitle: "Failed", message: "Failed to register")
-                }
+            self.passwordField.text = ""
+            self.confirmPasswordField.text = ""
+            
+            return
+        }
+        
+        guard
+            let password = passwordField.text,
+            let email = emailField.text
+            else {
+                showAlert(title: "All fields are required", message: "Please fill out all fields and try again.")
+                return
+        }
+        
+        coordinator.register(email: email, password: password, completion: {
+            
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "registerSegue", sender: nil)
+            }
+            
+        }) { e in
+            DispatchQueue.main.async {
+                self.showAlert(title: "Failed", message: e)
             }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.usernameField.resignFirstResponder()
+        self.emailField.resignFirstResponder()
         self.passwordField.resignFirstResponder()
         self.confirmPasswordField.resignFirstResponder()
     }

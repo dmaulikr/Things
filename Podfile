@@ -7,6 +7,8 @@ target 'Things' do
   platform :ios, '10.0'
   use_frameworks!
   
-  pod 'Just'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
 
 end

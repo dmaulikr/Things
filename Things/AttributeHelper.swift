@@ -8,28 +8,20 @@
 
 import Foundation
 
-struct AttributeHelper {
+struct AttributeFactory {
     
-    static func findAttributeType(from dict: [String : Any]) -> AttributeType? {
-        if let _typeValue = dict["type"] as? String {
-            guard let _typeHash = Int(_typeValue) else { fatalError() }
-            guard let _type = AttributeType(rawValue: _typeHash) else { fatalError() }
-            
-            return _type
-        }
+    static var shared = AttributeFactory()
+    
+    public func generateAttribute(from dict: [String : Any]) -> Attribute? {
         
-        return nil
-    }
-    
-    static func attribute(from dict: [String : Any]) -> Attribute? {
         var _type: AttributeType?
         
-        _type = AttributeHelper.findAttributeType(from: dict)
+        _type = findAttributeType(in: dict)
         var _dict = dict
         
         if _type == nil {
             guard let attributeDict = dict["attribute"] as? [String:Any] else { fatalError() }
-            _type = AttributeHelper.findAttributeType(from: attributeDict)
+            _type = findAttributeType(in: attributeDict)
             _dict = attributeDict
         }
         
@@ -45,5 +37,19 @@ struct AttributeHelper {
         }
         
         return attribute
+    }
+    
+    private func findAttributeType(in dict: [String : Any]) -> AttributeType {
+        
+        print(dict)
+        
+        guard
+            let typeHash = dict["type"] as? Int,
+            let type = AttributeType(rawValue: typeHash)
+            else {
+                fatalError()
+        }
+        
+        return type
     }
 }

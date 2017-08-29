@@ -7,17 +7,18 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class Thing: NSObject, Objectified {
     
     var owner: String?
     
-    var icon: String!
+    var icon: String?
     var attributes: [Attribute] = []
     
     var objectType: ObjectType = .thing
-    var id: String = ""
-    var name: String = ""
+    var id: String!
+    var name: String!
     
     var created: String?
     var updated: String?
@@ -25,6 +26,7 @@ class Thing: NSObject, Objectified {
     func dict() -> [String : Any] {
         var _dict: [String : Any] = [:]
         
+        _dict["id"] = self.id
         _dict["icon"] = self.icon
         
         var _attributes: [[String : Any]] = []
@@ -43,9 +45,13 @@ class Thing: NSObject, Objectified {
     
     init(from dict: [String : Any]) {
         
-        owner = dict["owner"] as! String?
+        if let _owner = dict["owner"] as? String {
+            self.owner = _owner
+        }
         
-        self.icon = dict["icon"] as! String
+        if let _icon = dict["icon"] as? String {
+            self.icon = _icon
+        }
         
         if let _objectTypeHash = dict["objectType"] as? Int {
             if let _objectType = ObjectType(rawValue: _objectTypeHash) {
@@ -53,9 +59,13 @@ class Thing: NSObject, Objectified {
             }
         }
         
-        self.id = dict["id"] as! String
+        if let _id = dict["id"] as? String {
+            self.id = _id
+        }
         
-        self.name = dict["name"] as! String
+        if let _name = dict["name"] as? String {
+            self.name = _name
+        }
         
 //        print(dict)
         
@@ -83,18 +93,34 @@ class Thing: NSObject, Objectified {
         }
     }
     
-    override required init() { super.init() }
+    override required init() {
+        super.init()
+        id = newID()
+    }
     
     required init(from object: Object) {
+        super.init()
         objectType = object.objectType
-        id = object.id
+        if object.id == "" {
+            id = newID()
+        } else {
+            id = object.id
+        }
         name = object.name
         self.icon = randomFontAwesomeCode()
     }
     
     ///Creates new Thing instance assigning the 'name' parameter to self.name. A new UUID is generated and assigned to self.id. This initialization is meant to be used to create a new Attribute object prior to saving it to the server, generally when the user initiates creating a new Thing from the UI.
     init(name: String) {
+        super.init()
         self.name = name
-        self.icon = randomFontAwesomeCode()
+        self.id = newID()
+        if self.icon == nil {
+            self.icon = randomFontAwesomeCode()
+        }
+    }
+    
+    private func newID() -> String {
+        return Database.database().reference(withPath: "/humans/\(AppState.shared.uid!)/things/").childByAutoId().key
     }
 }

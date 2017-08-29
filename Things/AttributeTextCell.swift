@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AttributeTextCell: UITableViewCell, UITextViewDelegate {
+class AttributeTextCell: UITableViewCell {
 
     @IBOutlet var newAttributeTextView: UITextView!
     @IBOutlet weak var thingDescriptionLabel: UILabel!

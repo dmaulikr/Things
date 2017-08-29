@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ThingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NewThingCellDelegate {
     
@@ -16,10 +17,11 @@ class ThingsViewController: UIViewController, UITableViewDataSource, UITableView
     var datasource: [Objectified] = []
     
     var selectedIndexPath: IndexPath?
-    
-    var refreshControl: UIRefreshControl!
-    
     var coordinator: Coordinator!
+    
+    var thingAddedObserver: DatabaseHandle!
+    var thingChangedObserver: DatabaseHandle!
+    var thingRemovedObserver: DatabaseHandle!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,41 +30,70 @@ class ThingsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.separatorStyle = .none
         
-        refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(ThingsViewController.downloadAllTheThings), for: .valueChanged)
-        tableView.addSubview(refreshControl)
-        
         toggleEmptyView()
         
         if coordinator == nil {
             coordinator = Coordinator()
         }
         
-        downloadAllTheThings()
+        setThingsObservers()
     }
     
-    func downloadAllTheThings() {
-        self.datasource = []
-        tableView.reloadData()
-        
-        coordinator.getAllThings(
-            gotOne: { (newThing) in
-                self.insertNew(thing: newThing, atBeginning: true)
-                
-        }, errorBlock: { (e) in
-            self.showAlert(withTitle: "Thing Error", message: e)
-            self.stopRefreshing()
-        }) {
-            self.stopRefreshing()
+    private func setThingsObservers() {
+        guard let uid = AppState.shared.uid else {
+            return
         }
         
-        toggleEmptyView()
+        let allTheThingsRef = Database.database().reference().child("/humans/\(uid)/things/")
+        
+        allTheThingsRef.keepSynced(true)
+        
+        thingAddedObserver = allTheThingsRef.observe(.childAdded, with: { (snapshot) in
+            let dict = snapshot.value as! [String : Any]
+            let thing = Thing(from: dict)
+            self.insert(thing, atBeginning: true)
+            self.toggleEmptyView()
+        })
+        
+        thingChangedObserver = allTheThingsRef.observe(.childChanged, with: { (snapshot) in
+            let dict = snapshot.value as! [String : Any]
+            let thing = Thing(from: dict)
+            
+            let index = self.indexOf(thing)!
+            self.datasource[index] = thing
+            let row = IndexPath(row: index, section: 0)
+            self.tableView.reloadRows(at: [row], with: .automatic)
+            self.toggleEmptyView()
+        })
+        
+        thingRemovedObserver = allTheThingsRef.observe(.childRemoved, with: { (snapshot) in
+            let dict = snapshot.value as! [String : Any]
+            let thing = Thing(from: dict)
+            
+            guard let index = self.indexOf(thing) else { return }
+            self.datasource.remove(at: index)
+            let row = IndexPath(row: index, section: 0)
+            self.tableView.deleteRows(at: [row], with: .automatic)
+            self.toggleEmptyView()
+        })
     }
     
-    private func stopRefreshing() {
-        DispatchQueue.main.async {
-            self.refreshControl.endRefreshing()
+    func indexOf(_ thing: Thing) -> Int? {
+        
+        for i in 0..<datasource.count {
+            let object = datasource[i]
+            if object.id == thing.id {
+                return i
+            }
         }
+        
+        return nil
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        Database.database().reference().removeAllObservers()
     }
     
     func toggleEmptyView() {
@@ -114,8 +145,11 @@ class ThingsViewController: UIViewController, UITableViewDataSource, UITableView
             
         case .new:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CellKey.newThing) as? NewThingCell else { fatalError() }
+            
             cell.delegate = self
             cell.coordinator = self.coordinator
+            
+            cell.icons = Array(FontAwesomeIcons.values)
             
             return cell
             
@@ -153,6 +187,23 @@ class ThingsViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let object = datasource[indexPath.row]
+        
+        switch object.objectType {
+        case .thing:
+            return UITableViewAutomaticDimension
+        case .new:
+            return 252
+        default:
+            return 44
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteRowAction = UITableViewRowAction(style: .default, title: "Delete") { (action, actionIndexPath) -> Void in
             
@@ -169,7 +220,7 @@ class ThingsViewController: UIViewController, UITableViewDataSource, UITableView
                 }
                 
             }, errorBlock: { (e) in
-                self.showAlert(withTitle: "Failed Delete", message: e)
+                self.showAlert(title: "Failed Delete", message: e)
                 
                 DispatchQueue.main.async {
                     self.datasource.insert(cachedThing, at: indexPath.row)
@@ -201,16 +252,15 @@ class ThingsViewController: UIViewController, UITableViewDataSource, UITableView
         removeNewThingCell()
     }
     
-    func didSave(new thing: Thing) {
+    func didSaveNewThing() {
         removeNewThingCell()
-        insertNew(thing: thing, atBeginning: true)
     }
     
     func didFail(with error: String) {
-        self.showAlert(withTitle: "Save Failed", message: error)
+        self.showAlert(title: "Save Failed", message: error)
     }
     
-    func insertNew(thing: Thing, atBeginning: Bool) {
+    private func insert(_ thing: Thing, atBeginning: Bool) {
         
         DispatchQueue.main.async {
             self.tableView.beginUpdates()
@@ -247,19 +297,10 @@ class ThingsViewController: UIViewController, UITableViewDataSource, UITableView
                 
             } else {
                 
-                for index in 0...self.datasource.capacity {
-                    
-                    if index > self.datasource.capacity {
-                        return
-                    }
-                    
-                    let object = self.datasource[index]
-                    
-                    if object.objectType.isNew {
-                        self.datasource.remove(at: index)
-                        let indexPath = IndexPath(row: index, section: 0)
-                        self.tableView.deleteRows(at: [indexPath], with: .fade)
-                    }
+                if let validIndex = (self.datasource.index{$0.objectType.isNew}) {
+                    self.datasource.remove(at: validIndex)
+                    let indexPath = IndexPath(row: validIndex, section: 0)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }
             

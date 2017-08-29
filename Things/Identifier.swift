@@ -9,11 +9,11 @@
 import Foundation
 
 protocol Named {
-    var name: String { get set }
+    var name: String! { get set }
 }
 
 protocol Identified: Named, Dated {
-    var id: String { get set }
+    var id: String! { get set }
 }
 
 struct Identifier: Equatable, Dated {

@@ -19,13 +19,13 @@ class TextAttribute: Attribute, TextManager {
     
     //MARK: protocol Attribute
     var type: AttributeType = .text
-    var parent: String = ""
+    var parent: String!
     
-    var id: String = ""
+    var id: String!
     
     var objectType: ObjectType = .attribute
     
-    var name: String = ""
+    var name: String!
     
     var created: String?
     var updated: String?
@@ -38,6 +38,7 @@ class TextAttribute: Attribute, TextManager {
         _dict["parent"] = self.parent
         _dict["created"] = self.created
         _dict["updated"] = self.updated
+        _dict["id"] = self.id
         
         return _dict
     }
@@ -47,6 +48,8 @@ class TextAttribute: Attribute, TextManager {
         self.parent = parent.id
         self.created = Date().string
         self.updated = Date().string
+        
+        self.id = newID()
     }
     
     required init(from object: Object) {

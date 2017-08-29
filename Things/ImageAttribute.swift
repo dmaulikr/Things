@@ -14,15 +14,18 @@ class ImageAttribute: Attribute, ImageManager {
     required init(from object: Object) {
         name = object.name
         self.parent = ""
+        id = newID()
     }
     
     init(image: UIImage, parent: Thing) {
         self.image = image
         self.parent = parent.id
+        id = newID()
     }
     
     required init(from dict: [String : Any]) {
         self.parent = ""
+        id = newID()
     }
     
     //MARK: protocol ImageManager
@@ -33,18 +36,19 @@ class ImageAttribute: Attribute, ImageManager {
     
     var objectType: ObjectType = .attribute
     
-    var parent: String
+    var parent: String!
     
-    var id: String = ""
-    var name: String = ""
+    var id: String!
+    var name: String!
     
     var created: String?
     var updated: String?
     
     internal func dict() -> [String : Any] {
-        let _dict: [String : Any] = [:]
+        var _dict: [String : Any] = [:]
         
         print("Image Attribute dict() -> [String : Any] has not been set.")
+        _dict["id"] = self.id
         
         return _dict
     }

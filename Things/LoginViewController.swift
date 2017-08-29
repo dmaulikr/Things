@@ -7,25 +7,54 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UITableViewController, UITextFieldDelegate {
     
-    var coordinator: Coordinator!
-    
-    @IBOutlet var usernameField: UITextField!
+    @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
+    
+    var coordinator: Coordinator!
+    var authHandler: AuthStateDidChangeListenerHandle!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.preferredContentSize.height = 202
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        authHandler = Auth.auth().addStateDidChangeListener {
+            auth, user in
+            
+            guard auth.currentUser != nil else {
+                AppState.shared.signedIn = false
+                return
+            }
+            
+            AppState.shared.signedIn = true
+            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(authHandler)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        usernameField.delegate = self
+        emailField.delegate = self
         passwordField.delegate = self
         
-        usernameField.becomeFirstResponder()
+        emailField.becomeFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == usernameField {
+        if textField == emailField {
             passwordField.becomeFirstResponder()
         
         } else if textField == passwordField {
@@ -41,25 +70,24 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     
     private func login() {
         guard
-            let username = usernameField.text,
+            let email = emailField.text,
             let password = passwordField.text else
         { return }
         
-        coordinator.login(username: username, password: password, completion: { success in
+        coordinator.login(email: email, password: password, completion: { success in
             DispatchQueue.main.async {
-                self.usernameField.resignFirstResponder()
+                self.emailField.resignFirstResponder()
                 self.passwordField.resignFirstResponder()
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
         }) { errorString in
             DispatchQueue.main.async {
-                self.showAlert(withTitle: "Login Error", message: errorString)
+                self.showAlert(title: "Login Error", message: errorString)
             }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.usernameField.resignFirstResponder()
+        self.emailField.resignFirstResponder()
         self.passwordField.resignFirstResponder()
     }
 }

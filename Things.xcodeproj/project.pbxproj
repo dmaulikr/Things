@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0173FC191E7F94AC006C8DE0 /* IconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173FC181E7F94AC006C8DE0 /* IconCell.swift */; };
+		01BF2D271E7DE98D00131A63 /* AttributeCellProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BF2D261E7DE98D00131A63 /* AttributeCellProperties.swift */; };
+		12A32B061F45738200F3BF0A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12A32B051F45738200F3BF0A /* GoogleService-Info.plist */; };
 		23EE31E41E5E2AE5007B5E1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE31E31E5E2AE5007B5E1B /* AppDelegate.swift */; };
 		23EE31E91E5E2AE5007B5E1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23EE31E71E5E2AE5007B5E1B /* Main.storyboard */; };
 		23EE31EC1E5E2AE5007B5E1B /* Things.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 23EE31EA1E5E2AE5007B5E1B /* Things.xcdatamodeld */; };
@@ -22,8 +25,7 @@
 		23EE32221E5E2BD5007B5E1B /* AttributesViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE321A1E5E2BD5007B5E1B /* AttributesViewController+UITableView.swift */; };
 		23EE32231E5E2BD5007B5E1B /* AttributesViewController+UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE321B1E5E2BD5007B5E1B /* AttributesViewController+UITextView.swift */; };
 		23EE32241E5E2BD5007B5E1B /* AttributeTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE321C1E5E2BD5007B5E1B /* AttributeTextCell.swift */; };
-		23EE32251E5E2BD5007B5E1B /* AttributeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE321D1E5E2BD5007B5E1B /* AttributeType.swift */; };
-		23EE322A1E5E2BDD007B5E1B /* CellProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32261E5E2BDD007B5E1B /* CellProperties.swift */; };
+		23EE322A1E5E2BDD007B5E1B /* ThingCellProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32261E5E2BDD007B5E1B /* ThingCellProperties.swift */; };
 		23EE322B1E5E2BDD007B5E1B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32271E5E2BDD007B5E1B /* Constants.swift */; };
 		23EE322C1E5E2BDD007B5E1B /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32281E5E2BDD007B5E1B /* Coordinator.swift */; };
 		23EE322D1E5E2BDD007B5E1B /* Dated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32291E5E2BDD007B5E1B /* Dated.swift */; };
@@ -46,7 +48,7 @@
 		23EE32541E5E2CB7007B5E1B /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32471E5E2CB7007B5E1B /* Thing.swift */; };
 		23EE32551E5E2CB7007B5E1B /* ThingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32481E5E2CB7007B5E1B /* ThingCell.swift */; };
 		23EE32561E5E2CB7007B5E1B /* ThingDetailSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32491E5E2CB7007B5E1B /* ThingDetailSegue.swift */; };
-		23EE32571E5E2CB7007B5E1B /* Thinger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE324A1E5E2CB7007B5E1B /* Thinger.swift */; };
+		23EE32571E5E2CB7007B5E1B /* Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE324A1E5E2CB7007B5E1B /* Human.swift */; };
 		23EE325C1E5E2CC2007B5E1B /* ThingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32581E5E2CC2007B5E1B /* ThingsViewController.swift */; };
 		23EE325D1E5E2CC2007B5E1B /* ThingTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE32591E5E2CC2007B5E1B /* ThingTitleCell.swift */; };
 		23EE325E1E5E2CC2007B5E1B /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE325B1E5E2CC2007B5E1B /* UIViewController+.swift */; };
@@ -71,6 +73,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0173FC181E7F94AC006C8DE0 /* IconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconCell.swift; sourceTree = "<group>"; };
+		01BF2D261E7DE98D00131A63 /* AttributeCellProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeCellProperties.swift; sourceTree = "<group>"; };
+		12A32B051F45738200F3BF0A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		23EE31E01E5E2AE5007B5E1B /* Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Things.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23EE31E31E5E2AE5007B5E1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23EE31E81E5E2AE5007B5E1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -92,8 +97,7 @@
 		23EE321A1E5E2BD5007B5E1B /* AttributesViewController+UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AttributesViewController+UITableView.swift"; sourceTree = "<group>"; };
 		23EE321B1E5E2BD5007B5E1B /* AttributesViewController+UITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AttributesViewController+UITextView.swift"; sourceTree = "<group>"; };
 		23EE321C1E5E2BD5007B5E1B /* AttributeTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeTextCell.swift; sourceTree = "<group>"; };
-		23EE321D1E5E2BD5007B5E1B /* AttributeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeType.swift; sourceTree = "<group>"; };
-		23EE32261E5E2BDD007B5E1B /* CellProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellProperties.swift; sourceTree = "<group>"; };
+		23EE32261E5E2BDD007B5E1B /* ThingCellProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThingCellProperties.swift; sourceTree = "<group>"; };
 		23EE32271E5E2BDD007B5E1B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		23EE32281E5E2BDD007B5E1B /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		23EE32291E5E2BDD007B5E1B /* Dated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dated.swift; sourceTree = "<group>"; };
@@ -117,7 +121,7 @@
 		23EE32471E5E2CB7007B5E1B /* Thing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
 		23EE32481E5E2CB7007B5E1B /* ThingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThingCell.swift; sourceTree = "<group>"; };
 		23EE32491E5E2CB7007B5E1B /* ThingDetailSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThingDetailSegue.swift; sourceTree = "<group>"; };
-		23EE324A1E5E2CB7007B5E1B /* Thinger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thinger.swift; sourceTree = "<group>"; };
+		23EE324A1E5E2CB7007B5E1B /* Human.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Human.swift; sourceTree = "<group>"; };
 		23EE32581E5E2CC2007B5E1B /* ThingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThingsViewController.swift; sourceTree = "<group>"; };
 		23EE32591E5E2CC2007B5E1B /* ThingTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThingTitleCell.swift; sourceTree = "<group>"; };
 		23EE325A1E5E2CC2007B5E1B /* Thingy-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Thingy-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -153,10 +157,82 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01BF2D1F1E7DE7E300131A63 /* ThingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				23EE32581E5E2CC2007B5E1B /* ThingsViewController.swift */,
+				23EE32261E5E2BDD007B5E1B /* ThingCellProperties.swift */,
+				23EE32481E5E2CB7007B5E1B /* ThingCell.swift */,
+				23EE32401E5E2CB7007B5E1B /* NewThingCell.swift */,
+				0173FC181E7F94AC006C8DE0 /* IconCell.swift */,
+			);
+			name = ThingsViewController;
+			sourceTree = "<group>";
+		};
+		01BF2D201E7DE82C00131A63 /* Image Attribute */ = {
+			isa = PBXGroup;
+			children = (
+				23EE32191E5E2BD5007B5E1B /* AttributesViewController+UIImagePickerController.swift */,
+				23EE32391E5E2C4C007B5E1B /* ImageAttributeViewController.swift */,
+				23EE32381E5E2C4C007B5E1B /* ImageAttributeCell.swift */,
+			);
+			name = "Image Attribute";
+			sourceTree = "<group>";
+		};
+		01BF2D211E7DE8A500131A63 /* Text Attribute */ = {
+			isa = PBXGroup;
+			children = (
+				23EE321C1E5E2BD5007B5E1B /* AttributeTextCell.swift */,
+				23EE321B1E5E2BD5007B5E1B /* AttributesViewController+UITextView.swift */,
+			);
+			name = "Text Attribute";
+			sourceTree = "<group>";
+		};
+		01BF2D221E7DE8EB00131A63 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				23EE32271E5E2BDD007B5E1B /* Constants.swift */,
+				23EE323E1E5E2CB7007B5E1B /* Keys.swift */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		01BF2D231E7DE90900131A63 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				23EE32291E5E2BDD007B5E1B /* Dated.swift */,
+				23EE32361E5E2C4C007B5E1B /* Identifier.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		01BF2D251E7DE94D00131A63 /* SplitViewController */ = {
+			isa = PBXGroup;
+			children = (
+				23EE32451E5E2CB7007B5E1B /* SplitThingsViewController.swift */,
+				23EE32491E5E2CB7007B5E1B /* ThingDetailSegue.swift */,
+			);
+			name = SplitViewController;
+			sourceTree = "<group>";
+		};
+		01BF2D281E7DE9DC00131A63 /* Splash ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				23EE32441E5E2CB7007B5E1B /* SplashViewController.swift */,
+				23EE323F1E5E2CB7007B5E1B /* LoginViewController.swift */,
+				23EE32421E5E2CB7007B5E1B /* RegisterViewController.swift */,
+			);
+			name = "Splash ViewControllers";
+			sourceTree = "<group>";
+		};
 		01E8CD0D1E70F70A0003DF5F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				23EE32281E5E2BDD007B5E1B /* Coordinator.swift */,
+				23EE32411E5E2CB7007B5E1B /* Object.swift */,
 				23EE32471E5E2CB7007B5E1B /* Thing.swift */,
+				23EE324A1E5E2CB7007B5E1B /* Human.swift */,
+				01BF2D231E7DE90900131A63 /* Protocols */,
 				01E8CD0E1E70F7220003DF5F /* Attribute */,
 			);
 			name = Model;
@@ -166,9 +242,9 @@
 			isa = PBXGroup;
 			children = (
 				23EE32461E5E2CB7007B5E1B /* TextAttribute.swift */,
+				23EE32371E5E2C4C007B5E1B /* ImageAttribute.swift */,
 				23EE32161E5E2BD5007B5E1B /* Attribute.swift */,
 				23EE32171E5E2BD5007B5E1B /* AttributeHelper.swift */,
-				23EE321D1E5E2BD5007B5E1B /* AttributeType.swift */,
 			);
 			name = Attribute;
 			sourceTree = "<group>";
@@ -176,6 +252,11 @@
 		01E8CD0F1E70F73C0003DF5F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				23EE32431E5E2CB7007B5E1B /* SettingsViewController.swift */,
+				23EE325B1E5E2CC2007B5E1B /* UIViewController+.swift */,
+				01BF2D281E7DE9DC00131A63 /* Splash ViewControllers */,
+				01BF2D251E7DE94D00131A63 /* SplitViewController */,
+				01BF2D1F1E7DE7E300131A63 /* ThingsViewController */,
 				01E8CD101E70F7420003DF5F /* AttributesViewController */,
 			);
 			name = Controller;
@@ -185,10 +266,11 @@
 			isa = PBXGroup;
 			children = (
 				23EE32181E5E2BD5007B5E1B /* AttributesViewController.swift */,
-				23EE32191E5E2BD5007B5E1B /* AttributesViewController+UIImagePickerController.swift */,
 				23EE321A1E5E2BD5007B5E1B /* AttributesViewController+UITableView.swift */,
-				23EE321B1E5E2BD5007B5E1B /* AttributesViewController+UITextView.swift */,
-				23EE321C1E5E2BD5007B5E1B /* AttributeTextCell.swift */,
+				01BF2D261E7DE98D00131A63 /* AttributeCellProperties.swift */,
+				23EE32591E5E2CC2007B5E1B /* ThingTitleCell.swift */,
+				01BF2D211E7DE8A500131A63 /* Text Attribute */,
+				01BF2D201E7DE82C00131A63 /* Image Attribute */,
 			);
 			name = AttributesViewController;
 			sourceTree = "<group>";
@@ -221,35 +303,15 @@
 				23EE31E31E5E2AE5007B5E1B /* AppDelegate.swift */,
 				23EE32141E5E2BCC007B5E1B /* AppState.swift */,
 				01E8CD0F1E70F73C0003DF5F /* Controller */,
+				01BF2D221E7DE8EB00131A63 /* Constants */,
 				01E8CD0D1E70F70A0003DF5F /* Model */,
-				23EE32261E5E2BDD007B5E1B /* CellProperties.swift */,
-				23EE32271E5E2BDD007B5E1B /* Constants.swift */,
-				23EE32281E5E2BDD007B5E1B /* Coordinator.swift */,
-				23EE32291E5E2BDD007B5E1B /* Dated.swift */,
-				23EE32361E5E2C4C007B5E1B /* Identifier.swift */,
-				23EE32371E5E2C4C007B5E1B /* ImageAttribute.swift */,
-				23EE32381E5E2C4C007B5E1B /* ImageAttributeCell.swift */,
-				23EE32391E5E2C4C007B5E1B /* ImageAttributeViewController.swift */,
-				23EE323E1E5E2CB7007B5E1B /* Keys.swift */,
-				23EE323F1E5E2CB7007B5E1B /* LoginViewController.swift */,
-				23EE32401E5E2CB7007B5E1B /* NewThingCell.swift */,
-				23EE32411E5E2CB7007B5E1B /* Object.swift */,
-				23EE32421E5E2CB7007B5E1B /* RegisterViewController.swift */,
-				23EE32431E5E2CB7007B5E1B /* SettingsViewController.swift */,
-				23EE32441E5E2CB7007B5E1B /* SplashViewController.swift */,
-				23EE32451E5E2CB7007B5E1B /* SplitThingsViewController.swift */,
-				23EE32481E5E2CB7007B5E1B /* ThingCell.swift */,
-				23EE32491E5E2CB7007B5E1B /* ThingDetailSegue.swift */,
-				23EE324A1E5E2CB7007B5E1B /* Thinger.swift */,
-				23EE32581E5E2CC2007B5E1B /* ThingsViewController.swift */,
-				23EE32591E5E2CC2007B5E1B /* ThingTitleCell.swift */,
 				23EE325A1E5E2CC2007B5E1B /* Thingy-Bridging-Header.h */,
-				23EE325B1E5E2CC2007B5E1B /* UIViewController+.swift */,
 				23EE32351E5E2C2C007B5E1B /* Font Awesome */,
 				23EE31E71E5E2AE5007B5E1B /* Main.storyboard */,
 				23EE31ED1E5E2AE5007B5E1B /* Assets.xcassets */,
 				23EE31EF1E5E2AE5007B5E1B /* LaunchScreen.storyboard */,
 				23EE31F21E5E2AE5007B5E1B /* Info.plist */,
+				12A32B051F45738200F3BF0A /* GoogleService-Info.plist */,
 				23EE31EA1E5E2AE5007B5E1B /* Things.xcdatamodeld */,
 			);
 			path = Things;
@@ -416,6 +478,7 @@
 			files = (
 				23EE31F11E5E2AE5007B5E1B /* LaunchScreen.storyboard in Resources */,
 				23EE31EE1E5E2AE5007B5E1B /* Assets.xcassets in Resources */,
+				12A32B061F45738200F3BF0A /* GoogleService-Info.plist in Resources */,
 				23EE32331E5E2BEB007B5E1B /* FontAwesome.otf in Resources */,
 				23EE31E91E5E2AE5007B5E1B /* Main.storyboard in Resources */,
 			);
@@ -444,9 +507,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Things/Pods-Things-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -459,13 +529,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Things-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C764DABFA178DEB7368915E0 /* [CP] Copy Pods Resources */ = {
@@ -474,9 +547,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Things/Pods-Things-resources.sh",
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -491,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23EE32211E5E2BD5007B5E1B /* AttributesViewController+UIImagePickerController.swift in Sources */,
+				01BF2D271E7DE98D00131A63 /* AttributeCellProperties.swift in Sources */,
 				23EE324D1E5E2CB7007B5E1B /* NewThingCell.swift in Sources */,
 				23EE321F1E5E2BD5007B5E1B /* AttributeHelper.swift in Sources */,
 				23EE325C1E5E2CC2007B5E1B /* ThingsViewController.swift in Sources */,
@@ -509,6 +592,7 @@
 				23EE32561E5E2CB7007B5E1B /* ThingDetailSegue.swift in Sources */,
 				23EE31E41E5E2AE5007B5E1B /* AppDelegate.swift in Sources */,
 				23EE323A1E5E2C4C007B5E1B /* Identifier.swift in Sources */,
+				0173FC191E7F94AC006C8DE0 /* IconCell.swift in Sources */,
 				23EE323B1E5E2C4C007B5E1B /* ImageAttribute.swift in Sources */,
 				23EE322B1E5E2BDD007B5E1B /* Constants.swift in Sources */,
 				23EE32321E5E2BEB007B5E1B /* Enum.swift in Sources */,
@@ -516,13 +600,12 @@
 				23EE325E1E5E2CC2007B5E1B /* UIViewController+.swift in Sources */,
 				23EE32241E5E2BD5007B5E1B /* AttributeTextCell.swift in Sources */,
 				23EE32511E5E2CB7007B5E1B /* SplashViewController.swift in Sources */,
-				23EE322A1E5E2BDD007B5E1B /* CellProperties.swift in Sources */,
+				23EE322A1E5E2BDD007B5E1B /* ThingCellProperties.swift in Sources */,
 				23EE324E1E5E2CB7007B5E1B /* Object.swift in Sources */,
 				23EE32521E5E2CB7007B5E1B /* SplitThingsViewController.swift in Sources */,
 				23EE32201E5E2BD5007B5E1B /* AttributesViewController.swift in Sources */,
-				23EE32251E5E2BD5007B5E1B /* AttributeType.swift in Sources */,
 				23EE32531E5E2CB7007B5E1B /* TextAttribute.swift in Sources */,
-				23EE32571E5E2CB7007B5E1B /* Thinger.swift in Sources */,
+				23EE32571E5E2CB7007B5E1B /* Human.swift in Sources */,
 				23EE324F1E5E2CB7007B5E1B /* RegisterViewController.swift in Sources */,
 				23EE323C1E5E2C4C007B5E1B /* ImageAttributeCell.swift in Sources */,
 				23EE32221E5E2BD5007B5E1B /* AttributesViewController+UITableView.swift in Sources */,
