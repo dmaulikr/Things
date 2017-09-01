@@ -64,7 +64,7 @@ public extension String {
     /// - parameter name: The preferred icon name.
     /// - returns: A string that will appear as icon with FontAwesome.
     public static func fontAwesomeIconWithName(_ name: FontAwesome) -> String {
-        return name.rawValue.substring(to: name.rawValue.characters.index(name.rawValue.startIndex, offsetBy: 1))
+        return "\(name.rawValue[..<name.rawValue.characters.index(name.rawValue.startIndex, offsetBy: 1)])"
     }   
 
     /// Get a FontAwesome icon string with the given CSS icon code. Icon code can be found here: http://fontawesome.io/icons/
@@ -99,10 +99,10 @@ public extension UIImage {
         
         let fontSize = min(size.width / fontAspectRatio, size.height)
         let attributedString = NSAttributedString(string: String.fontAwesomeIconWithName(name),
-                                                  attributes: [NSFontAttributeName: UIFont.fontAwesomeOfSize(fontSize),
-                                                    NSForegroundColorAttributeName: textColor,
-                                                    NSBackgroundColorAttributeName: backgroundColor,
-                                                    NSParagraphStyleAttributeName: paragraph])
+                                                  attributes: [NSAttributedStringKey.font: UIFont.fontAwesomeOfSize(fontSize),
+                                                    NSAttributedStringKey.foregroundColor: textColor,
+                                                    NSAttributedStringKey.backgroundColor: backgroundColor,
+                                                    NSAttributedStringKey.paragraphStyle: paragraph])
         
         UIGraphicsBeginImageContextWithOptions(size, false , 0.0)
         attributedString.draw(in: CGRect(x: 0, y: (size.height - fontSize) / 2, width: size.width, height: fontSize))
@@ -144,7 +144,7 @@ private class FontLoader {
         let font = CGFont(provider)
 
         var error: Unmanaged<CFError>?
-        if !CTFontManagerRegisterGraphicsFont(font, &error) {
+        if !CTFontManagerRegisterGraphicsFont(font!, &error) {
             let errorDescription: CFString = CFErrorCopyDescription(error!.takeUnretainedValue())
             let nsError = error!.takeUnretainedValue() as AnyObject as! NSError
             NSException(name: NSExceptionName.internalInconsistencyException, reason: errorDescription as String, userInfo: [NSUnderlyingErrorKey: nsError]).raise()

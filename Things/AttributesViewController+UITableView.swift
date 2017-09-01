@@ -2,8 +2,8 @@
 //  AttributesViewController+UITableView.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 7/18/16.
-//  Copyright © 2016 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 7/18/16.
+//  Copyright © 2016 Exoteric Design. All rights reserved.
 //
 
 import UIKit
@@ -119,7 +119,7 @@ extension AttributesViewController: UITableViewDelegate, UITableViewDataSource {
         
         let deleteRowAction = UITableViewRowAction(style: .default, title: "Delete") { (action, actionIndexPath) in
             let alert = UIAlertController(title: "Are you sure you want to delete this Attribute?", message: "This cannot be undone!", preferredStyle: .alert)
-            let yes = UIAlertAction(title: "🐍 Yessssssss", style: .destructive) { action in
+            let yes = UIAlertAction(title: "🐍 YASssssss", style: .destructive) { action in
                 self.deleteAttribute(at: indexPath)
             }
             let no = UIAlertAction(title: "No Keep it! 😰", style: .cancel, handler: nil)

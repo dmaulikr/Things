@@ -2,7 +2,7 @@
 //  IconCell.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 3/19/17.
+//  Created by Brianna Lee on 3/19/17.
 //  Copyright © 2017 Exoteric Design. All rights reserved.
 //
 

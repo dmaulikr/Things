@@ -2,8 +2,8 @@
 //  NewThingCell.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 11/18/15.
-//  Copyright © 2015 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 11/18/15.
+//  Copyright © 2015 Exoteric Design. All rights reserved.
 //
 
 import UIKit

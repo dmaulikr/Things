@@ -2,8 +2,8 @@
 //  ImageAttribute.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 8/14/16.
-//  Copyright © 2016 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 8/14/16.
+//  Copyright © 2016 Exoteric Design. All rights reserved.
 //
 
 import UIKit

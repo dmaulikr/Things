@@ -2,8 +2,8 @@
  //  ThingDataCoordinator.swift
  //  Things
  //
- //  Created by Brie Heutmaker on 5/18/16.
- //  Copyright © 2016 Brie Heutmaker. All rights reserved.
+ //  Created by Brianna Lee on 5/18/16.
+ //  Copyright © 2016 Exoteric Design. All rights reserved.
  //
  
  import UIKit
@@ -17,27 +17,27 @@
  struct Coordinator {
     
     func thingRef(with id: String) -> DatabaseReference {
-        guard let uid = AppState.shared.uid else {
-            fatalError()
-        }
-        
-        let thingRef = Database.database().reference(withPath: "/humans/\(uid)/things/\(id)/")
+        let thingRef = Database.database().reference(withPath: "humans/\(AppState.shared.uid ?? "")/things/\(id)/")
         return thingRef
+    }
+    
+    func attributeRef(from attribute: Attribute) -> DatabaseReference {
+        let attributeRef = Database.database().reference(withPath: "humans/\(AppState.shared.uid ?? "")/things/\(attribute.parent ?? "")/attributes/\(attribute.id ?? "")/")
+        return attributeRef
     }
     
     func save(_ thing: Thing,
               closure: @escaping () -> Void,
               errorBlock: @escaping (_ e: String) -> Void) {
         
-        print(thing.dict())
-        
         guard let id = thing.id else {
-            fatalError()
+            errorBlock("Yeah the thing doesn't have an ID.... That's actually the error you should tell the developers.")
+            return
         }
         
         thingRef(with: id).updateChildValues(thing.dict()) { (error, ref) in
             guard error == nil else {
-                errorBlock(error!.localizedDescription)
+                errorBlock("Didn't save! Here's why: " + error!.localizedDescription)
                 return
             }
             
@@ -50,12 +50,13 @@
                 errorBlock: @escaping (_ e: String) -> Void) {
         
         guard let id = thing.id else {
-            fatalError()
+            errorBlock("Yeah the thing doesn't have an ID.... That's actually the error you should tell the developers.")
+            return
         }
         
         thingRef(with: id).removeValue { (error, ref) in
             if error != nil {
-                errorBlock(error!.localizedDescription)
+                errorBlock("So we're gonna give it to you straight. The Thing didn't delete and there was an error: " + error!.localizedDescription)
             
             } else {
                 closure()
@@ -63,14 +64,7 @@
         }
     }
     
-    func attributeRef(from attribute: Attribute) -> DatabaseReference {
-        guard let uid = AppState.shared.uid else {
-            fatalError()
-        }
-        
-        let attributeRef = Database.database().reference(withPath: "/humans/\(uid)/things/\(attribute.parent!)/attributes/\(attribute.id!)/")
-        return attributeRef
-    }
+    
     
     func save(_ attribute: Attribute,
               closure: @escaping () -> Void,
@@ -78,7 +72,7 @@
         
         attributeRef(from: attribute).updateChildValues(attribute.dict()) { (error, ref) in
             guard error == nil else {
-                errorBlock(error!.localizedDescription)
+                errorBlock("Wait... It didn't save there was an error: " + error!.localizedDescription)
                 return
             }
             
@@ -92,7 +86,7 @@
         
         attributeRef(from: attribute).removeValue { (error, ref) in
             if error != nil {
-                errorBlock(error!.localizedDescription)
+                errorBlock("Yo... Error: " + error!.localizedDescription)
                 
             } else {
                 closure()
@@ -137,7 +131,7 @@
         do {
             try Auth.auth().signOut()
         } catch let e as NSError {
-            errorBlock(e.localizedDescription)
+            errorBlock("So you can't logout! Haha you're stuck with us! 🤣/nNo no, but really here's the error: " + e.localizedDescription)
             return
         }
         

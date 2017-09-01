@@ -2,16 +2,14 @@
 //  ThingsViewController.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 11/18/15.
-//  Copyright © 2015 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 11/18/15.
+//  Copyright © 2015 Exoteric Design. All rights reserved.
 //
 
 import UIKit
 import FirebaseDatabase
 
 class ThingsViewController: EDTableViewController, UITableViewDataSource, UITableViewDelegate, NewThingCellDelegate {
-    
-    @IBOutlet var emptyView: UIView!
     
     var datasource: [Objectified] = []
     
@@ -24,6 +22,8 @@ class ThingsViewController: EDTableViewController, UITableViewDataSource, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "All The Things"
         
         type = .things
         
@@ -45,7 +45,7 @@ class ThingsViewController: EDTableViewController, UITableViewDataSource, UITabl
             return
         }
         
-        let allTheThingsRef = Database.database().reference().child("/humans/\(uid)/things/")
+        let allTheThingsRef = Database.database().reference().child("humans/\(uid)/things/")
         
         allTheThingsRef.keepSynced(true)
         
@@ -97,23 +97,6 @@ class ThingsViewController: EDTableViewController, UITableViewDataSource, UITabl
         Database.database().reference().removeAllObservers()
     }
     
-    func toggleEmptyView() {
-        DispatchQueue.main.async {
-            if self.tableView.numberOfRows(inSection: 0) == 0 {
-                self.emptyView.frame = self.tableView.frame
-                
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.tableView.backgroundView = self.emptyView
-                })
-                
-            } else {
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.tableView.backgroundView = nil
-                })
-            }
-        }
-    }
-    
     //New Thing
     
     @IBAction func newThingButtonHandler(_ sender: UIBarButtonItem) {
@@ -122,7 +105,10 @@ class ThingsViewController: EDTableViewController, UITableViewDataSource, UITabl
         let newObject = Object(type: .new)
         datasource.insert(newObject, at: 0)
         
+        tableView.beginUpdates()
         tableView.reloadSections([0], with: .fade)
+        tableView.insertRows(at: [firstIndexPath], with: .fade)
+        tableView.endUpdates()
         
         toggleEmptyView()
         
@@ -232,6 +218,7 @@ class ThingsViewController: EDTableViewController, UITableViewDataSource, UITabl
             self.toggleEmptyView()
             if indexPath == self.selectedIndexPath {
                 self.selectedIndexPath = nil
+                self.performSegue(withIdentifier: SegueKey.showDetail, sender: nil)
             }
             
         }, errorBlock: { (e) in
@@ -250,11 +237,17 @@ class ThingsViewController: EDTableViewController, UITableViewDataSource, UITabl
             return
         }
         
-        if splitViewController!.isCollapsed {
-            tableView.deselectRow(at: indexPath, animated: true)
+        selectedIndexPath = indexPath
+        performSegue(withIdentifier: SegueKey.showDetail, sender: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+        if tableView.cellForRow(at: indexPath) is NewThingCell {
+            return
         }
         
-        selectedIndexPath = indexPath
+        selectedIndexPath = nil
         performSegue(withIdentifier: SegueKey.showDetail, sender: nil)
     }
     
@@ -330,27 +323,32 @@ class ThingsViewController: EDTableViewController, UITableViewDataSource, UITabl
                 let navigationController = segue.destination as? UINavigationController,
                 let settingsController = navigationController.viewControllers.first as? SettingsViewController
                 else {
-                    fatalError()
+                    return
             }
             
             settingsController.coordinator = self.coordinator
         }
         
-        if let indexPath = selectedIndexPath {
-            guard let thing = datasource[indexPath.row] as? Thing else { fatalError() }
+        if segue.identifier == SegueKey.showDetail {
             
-            if segue.identifier == SegueKey.showDetail {
-                
-                guard
-                    let navigationController = segue.destination as? UINavigationController,
-                    let detailViewController = navigationController.viewControllers.first as? AttributesViewController
+            guard
+                let navigationController = segue.destination as? UINavigationController,
+                let detailViewController = navigationController.viewControllers.first as? AttributesViewController
                 else {
-                    fatalError()
-                }
-                
-                detailViewController.thing = thing
-                detailViewController.coordinator = self.coordinator
+                    return
             }
+            
+            guard
+                let indexPath = selectedIndexPath,
+                let thing = datasource[indexPath.row] as? Thing
+                else {
+                    detailViewController.thing = nil
+                    detailViewController.toggleEmptyView()
+                    return
+            }
+            
+            detailViewController.thing = thing
+            detailViewController.coordinator = self.coordinator
         }
     }
 }

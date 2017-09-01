@@ -2,8 +2,8 @@
 //  ThingViewController.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 4/18/16.
-//  Copyright © 2016 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 4/18/16.
+//  Copyright © 2016 Exoteric Design. All rights reserved.
 //
 
 import UIKit
@@ -14,7 +14,7 @@ enum AttributesButtonStyle {
     case done(backButtonHidden: Bool)
 }
 
-class AttributesViewController: EDTableViewController, UITextFieldDelegate {
+class AttributesViewController: EDTableViewController {
     
     //MARK: Declarations
     
@@ -52,6 +52,7 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
         type = .attributes
         
         setTableView()
+        toggleEmptyView()
         setBarButtonItems(.thingButtons)
         
         setIcon()
@@ -60,6 +61,7 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setAttributesObservers()
+        toggleEmptyView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -70,15 +72,12 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
     }
     
     private func setAttributesObservers() {
-        guard let uid = AppState.shared.uid else {
-            fatalError()
-        }
         
         guard let thing = thing else {
             return
         }
         
-        let path = "/humans/\(uid)/things/\(thing.id!)/attributes/"
+        let path = "/humans/\(AppState.shared.uid ?? "")/things/\(thing.id ?? "")/attributes/"
         
         let attributesRef = Database.database().reference().child(path)
         
@@ -98,6 +97,8 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
             } else {
                 self.insert(attribute)
             }
+            
+            self.toggleEmptyView()
         })
         
         attributeChangedObserver = attributesRef.observe(.childChanged, with: { (snapshot) in
@@ -111,6 +112,8 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
                     self.tableView.reloadRows(at: [row], with: .automatic)
                 }
             }
+            
+            self.toggleEmptyView()
         })
         
         attributeRemovedObserver = attributesRef.observe(.childRemoved, with: { (snapshot) in
@@ -125,6 +128,8 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
                 }
             }
         })
+        
+        self.toggleEmptyView()
     }
     
     func indexOf(_ attribute: Attribute) -> Int? {
@@ -196,6 +201,8 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
                         }
                     }
                 })
+                
+                /// TODO: FIX THIS FUNCTION UGH
                 
                 if containsTextAttribute_NotUploaded {
                     while containsTextAttribute_NotUploaded {
@@ -287,7 +294,7 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
         case .thingButtons:
             
             if imageBarButtonItem == nil {
-                let attributes = [NSFontAttributeName : UIFont.fontAwesomeOfSize(20)] as Dictionary!
+                let attributes = [NSAttributedStringKey.font : UIFont.fontAwesomeOfSize(20)] as Dictionary!
                 imageBarButtonItem = UIBarButtonItem(title: String.fontAwesomeIconWithName(FontAwesome.Image),
                                                      style: .plain,
                                                      target: self,
@@ -296,7 +303,7 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
             }
             
             if textBarButtonItem == nil {
-                let attributes = [NSFontAttributeName : UIFont.fontAwesomeOfSize(20)] as Dictionary!
+                let attributes = [NSAttributedStringKey.font : UIFont.fontAwesomeOfSize(20)] as Dictionary!
                 textBarButtonItem = UIBarButtonItem(title: String.fontAwesomeIconWithName(FontAwesome.ICursor),
                                                     style: .plain,
                                                     target: self,
@@ -363,6 +370,7 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
         
         coordinator.delete(attribute: attribute, closure: {
             print("Successfully deleted Attribute")
+            self.toggleEmptyView()
         }, errorBlock: { (e) in
             self.showAlert(title: "Much Fail, Many Faults", message: "\(e)")
             
@@ -386,7 +394,7 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
         return indexPath
     }
     
-    @objc private func finishEditingTextAttribute() {
+    @objc func finishEditingTextAttribute() {
         
         guard let thing = self.thing else { return }
         guard let activeTextView = activeTextView else { return }
@@ -434,6 +442,8 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
         } else {
             activeTextView.resignFirstResponder()
         }
+        
+        toggleEmptyView()
     }
     
     private func save(_ attribute: Attribute) {
@@ -545,10 +555,18 @@ class AttributesViewController: EDTableViewController, UITextFieldDelegate {
             }
             
             self.tableView.deleteRows(at: indexes, with: .fade)
+            self.toggleEmptyView()
         }
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        finishEditingTextAttribute()
+    override func toggleEmptyView() {
+        guard let thing = thing else {
+            super.toggleEmptyView()
+            return
+        }
+        
+        if !thing.attributes.isEmpty {
+            super.toggleEmptyView()
+        }
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -77,6 +77,7 @@
 		014302D11F54F9730009F32E /* EDTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDTableViewController.swift; sourceTree = "<group>"; };
 		0173FC181E7F94AC006C8DE0 /* IconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconCell.swift; sourceTree = "<group>"; };
 		01BF2D261E7DE98D00131A63 /* AttributeCellProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeCellProperties.swift; sourceTree = "<group>"; };
+		01EE13521F5A092900C8FA4F /* Things.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Things.entitlements; sourceTree = "<group>"; };
 		12A32B051F45738200F3BF0A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		23EE31E01E5E2AE5007B5E1B /* Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Things.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23EE31E31E5E2AE5007B5E1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -190,15 +191,6 @@
 			name = "Text Attribute";
 			sourceTree = "<group>";
 		};
-		01BF2D221E7DE8EB00131A63 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				23EE32271E5E2BDD007B5E1B /* Constants.swift */,
-				23EE323E1E5E2CB7007B5E1B /* Keys.swift */,
-			);
-			name = Constants;
-			sourceTree = "<group>";
-		};
 		01BF2D231E7DE90900131A63 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,9 +223,9 @@
 			isa = PBXGroup;
 			children = (
 				23EE32281E5E2BDD007B5E1B /* Coordinator.swift */,
-				23EE32411E5E2CB7007B5E1B /* Object.swift */,
 				23EE32471E5E2CB7007B5E1B /* Thing.swift */,
 				23EE324A1E5E2CB7007B5E1B /* Human.swift */,
+				23EE32411E5E2CB7007B5E1B /* Object.swift */,
 				01BF2D231E7DE90900131A63 /* Protocols */,
 				01E8CD0E1E70F7220003DF5F /* Attribute */,
 			);
@@ -251,18 +243,18 @@
 			name = Attribute;
 			sourceTree = "<group>";
 		};
-		01E8CD0F1E70F73C0003DF5F /* Controller */ = {
+		01E8CD0F1E70F73C0003DF5F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				23EE32431E5E2CB7007B5E1B /* SettingsViewController.swift */,
 				23EE325B1E5E2CC2007B5E1B /* UIViewController+.swift */,
 				014302D11F54F9730009F32E /* EDTableViewController.swift */,
-				01BF2D281E7DE9DC00131A63 /* Splash ViewControllers */,
-				01BF2D251E7DE94D00131A63 /* SplitViewController */,
+				23EE32431E5E2CB7007B5E1B /* SettingsViewController.swift */,
 				01BF2D1F1E7DE7E300131A63 /* ThingsViewController */,
 				01E8CD101E70F7420003DF5F /* AttributesViewController */,
+				01BF2D281E7DE9DC00131A63 /* Splash ViewControllers */,
+				01BF2D251E7DE94D00131A63 /* SplitViewController */,
 			);
-			name = Controller;
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		01E8CD101E70F7420003DF5F /* AttributesViewController */ = {
@@ -303,10 +295,12 @@
 		23EE31E21E5E2AE5007B5E1B /* Things */ = {
 			isa = PBXGroup;
 			children = (
+				01EE13521F5A092900C8FA4F /* Things.entitlements */,
 				23EE31E31E5E2AE5007B5E1B /* AppDelegate.swift */,
 				23EE32141E5E2BCC007B5E1B /* AppState.swift */,
-				01E8CD0F1E70F73C0003DF5F /* Controller */,
-				01BF2D221E7DE8EB00131A63 /* Constants */,
+				23EE32271E5E2BDD007B5E1B /* Constants.swift */,
+				23EE323E1E5E2CB7007B5E1B /* Keys.swift */,
+				01E8CD0F1E70F73C0003DF5F /* ViewControllers */,
 				01E8CD0D1E70F70A0003DF5F /* Model */,
 				23EE325A1E5E2CC2007B5E1B /* Thingy-Bridging-Header.h */,
 				23EE32351E5E2C2C007B5E1B /* Font Awesome */,
@@ -431,31 +425,43 @@
 		23EE31D81E5E2AE5007B5E1B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = ED;
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Exoteric Design";
 				TargetAttributes = {
 					23EE31DF1E5E2AE5007B5E1B = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 67AJUH7978;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 					23EE31F61E5E2AE5007B5E1B = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = PE87Y97CS6;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 23EE31DF1E5E2AE5007B5E1B;
 					};
 					23EE32011E5E2AE5007B5E1B = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = PE87Y97CS6;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 23EE31DF1E5E2AE5007B5E1B;
 					};
 				};
 			};
 			buildConfigurationList = 23EE31DB1E5E2AE5007B5E1B /* Build configuration list for PBXProject "Things" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -551,11 +557,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Things/Pods-Things-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle",
 			);
@@ -677,7 +683,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -685,7 +693,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -727,7 +739,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -735,7 +749,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -766,12 +784,14 @@
 			baseConfigurationReference = FA6EA98E4D1AF6C17DED5FDA /* Pods-Things.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Things/Things.entitlements;
 				DEVELOPMENT_TEAM = 67AJUH7978;
 				INFOPLIST_FILE = Things/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.exotericdesign.things;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -780,12 +800,14 @@
 			baseConfigurationReference = 635AF005D8F519732ECEB486 /* Pods-Things.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Things/Things.entitlements;
 				DEVELOPMENT_TEAM = 67AJUH7978;
 				INFOPLIST_FILE = Things/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.exotericdesign.things;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -799,7 +821,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ExotericDesign.ThingsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Things.app/Things";
 			};
 			name = Debug;
@@ -814,7 +837,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ExotericDesign.ThingsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Things.app/Things";
 			};
 			name = Release;
@@ -828,7 +852,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ExotericDesign.ThingsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Things;
 			};
 			name = Debug;
@@ -842,7 +867,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ExotericDesign.ThingsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Things;
 			};
 			name = Release;

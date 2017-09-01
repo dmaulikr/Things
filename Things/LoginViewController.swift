@@ -2,8 +2,8 @@
 //  LoginViewController.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 1/13/17.
-//  Copyright © 2017 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 1/13/17.
+//  Copyright © 2017 Exoteric Design. All rights reserved.
 //
 
 import UIKit
@@ -16,6 +16,15 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     
     var coordinator: Coordinator!
     var authHandler: AuthStateDidChangeListenerHandle!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        emailField.delegate = self
+        passwordField.delegate = self
+        
+        emailField.becomeFirstResponder()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -36,15 +45,6 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Auth.auth().removeStateDidChangeListener(authHandler)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        emailField.delegate = self
-        passwordField.delegate = self
-        
-        emailField.becomeFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -68,7 +68,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
             let password = passwordField.text else
         { return }
         
-        coordinator.login(email: email, password: password, completion: { success in
+        coordinator.login(email: email, password: password, completion: {
             DispatchQueue.main.async {
                 self.emailField.resignFirstResponder()
                 self.passwordField.resignFirstResponder()

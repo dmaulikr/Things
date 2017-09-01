@@ -2,8 +2,8 @@
 //  AttributeHelper.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 2/16/17.
-//  Copyright © 2017 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 2/16/17.
+//  Copyright © 2017 Exoteric Design. All rights reserved.
 //
 
 import Foundation

@@ -1,9 +1,9 @@
-//
+ //
 //  AppDelegate.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 11/18/15.
-//  Copyright © 2015 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 11/18/15.
+//  Copyright © 2015 Exoteric Design. All rights reserved.
 //
 
 import UIKit
@@ -36,7 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // User not signed in. Show Splash page
             AppState.shared.signedIn = false
             
-            guard let splashViewController = storyboard.instantiateViewController(withIdentifier: "SplashViewController") as? SplashViewController else { fatalError() }
+            guard let splashNavigationController = storyboard.instantiateViewController(withIdentifier: "SplashViewController") as? UINavigationController else { fatalError() }
+            guard let splashViewController = splashNavigationController.viewControllers.first as? SplashViewController else { fatalError() }
             
             splashViewController.coordinator = coordinator
             self.window?.rootViewController = splashViewController

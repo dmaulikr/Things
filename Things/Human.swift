@@ -3,7 +3,7 @@
 //  Things
 //
 //  Created by Brianna Lee on 5/10/16.
-//  Copyright © 2016 Brianna Lee. All rights reserved.
+//  Copyright © 2016 Exoteric Design. All rights reserved.
 //
 
 import UIKit

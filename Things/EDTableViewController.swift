@@ -2,7 +2,7 @@
 //  EDTableViewController.swift
 //  Things
 //
-//  Created by brie on 8/28/17.
+//  Created by Brianna Lee on 8/28/17.
 //  Copyright © 2017 Exoteric Design. All rights reserved.
 //
 
@@ -18,7 +18,7 @@ class EDTableViewController: UIViewController {
     var type: EDTableViewControllerType!
     
     @IBOutlet var tableView: UITableView!
-    
+    @IBOutlet var emptyView: UIView!
     @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
     
     override func viewDidLoad() {
@@ -100,6 +100,23 @@ class EDTableViewController: UIViewController {
             
         }) { (finished) in
             completion()
+        }
+    }
+    
+    func toggleEmptyView() {
+        DispatchQueue.main.async {
+            if self.tableView.numberOfRows(inSection: 0) == 0 {
+                self.emptyView.frame = self.tableView.frame
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.tableView.backgroundView = self.emptyView
+                })
+                
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.tableView.backgroundView = nil
+                })
+            }
         }
     }
 }

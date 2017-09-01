@@ -2,8 +2,8 @@
 //  Thing.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 11/18/15.
-//  Copyright © 2015 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 11/18/15.
+//  Copyright © 2015 Exoteric Design. All rights reserved.
 //
 
 import UIKit
@@ -23,6 +23,9 @@ class Thing: NSObject, Objectified {
     var created: String?
     var updated: String?
     
+    /// Please Note: Do not fill Attributes array during initialization. All of the Attributes' values are set when Firebase adds an observer to the "/attributes/" path of this Thing.
+    ///
+    /// - Returns: Dictionary<String, Any>
     func dict() -> [String : Any] {
         var _dict: [String : Any] = [:]
         

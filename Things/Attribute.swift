@@ -2,8 +2,8 @@
 //  Attribute.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 4/18/16.
-//  Copyright © 2016 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 4/18/16.
+//  Copyright © 2016 Exoteric Design. All rights reserved.
 //
 
 import UIKit
@@ -26,7 +26,7 @@ protocol Attribute: Objectified {
 extension Attribute {
     func ref() -> DatabaseReference {
         print(parent)
-        return Database.database().reference(withPath: "/humans/\(AppState.shared.uid!)/things/\(parent)/attributes/\(id)")
+        return Database.database().reference(withPath: "/humans/\(AppState.shared.uid ?? "null")/things/\(parent ?? "null")/attributes/\(id ?? "null")")
     }
     
     func newID() -> String {

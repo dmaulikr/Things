@@ -2,8 +2,8 @@
 //  AttributesViewController+UIImagePickerController.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 7/25/16.
-//  Copyright © 2016 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 7/25/16.
+//  Copyright © 2016 Exoteric Design. All rights reserved.
 //
 
 import UIKit
@@ -19,7 +19,7 @@ extension AttributesViewController: UIImagePickerControllerDelegate, UINavigatio
     //MARK: Image Attribute
     
     //Click Camera Button
-    func cameraButtonHandler() {
+    @objc func cameraButtonHandler() {
         
         let libraryAction = UIAlertAction(title: "Library", style: .default) { (action) in
             self.presentImagePicker(.savedPhotosAlbum)
@@ -67,12 +67,12 @@ extension AttributesViewController: UIImagePickerControllerDelegate, UINavigatio
             
             thing.attributes.append(imageAttribute)
             
-            self.coordinator.save(thing, closure: { newThing in
-                print("Do what needs done.")
-                
-            }, errorBlock: { e in
-                print("Do what needs done.")
-            })
+//            self.coordinator.save(thing, closure: { newThing in
+//                print("Do what needs done.")
+//                
+//            }, errorBlock: { e in
+//                print("Do what needs done.")
+//            })
         }
     }
     

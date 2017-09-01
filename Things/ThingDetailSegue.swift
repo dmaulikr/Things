@@ -2,8 +2,8 @@
 //  ThingDetailSegue.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 5/12/16.
-//  Copyright © 2016 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 5/12/16.
+//  Copyright © 2016 Exoteric Design. All rights reserved.
 //
 
 import UIKit
@@ -15,7 +15,6 @@ class ThingDetailSegue: UIStoryboardSegue {
     override func perform() {
         
         let appDelegate = UIApplication.shared.keyWindow
-        
         
         if let splitViewController = appDelegate?.rootViewController as? SplitThingsViewController {
             

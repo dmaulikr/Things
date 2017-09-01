@@ -2,11 +2,11 @@
 //  ThingsTests.swift
 //  ThingsTests
 //
-//  Created by Brie Heutmaker on 2/22/17.
+//  Created by Brianna Lee on 2/22/17.
 //  Copyright © 2017 Exoteric Design. All rights reserved.
 //
 
-import XCTest
+import XCTestxs
 @testable import Things
 
 class ThingsTests: XCTestCase {

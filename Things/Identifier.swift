@@ -2,8 +2,8 @@
 //  ThingID.swift
 //  Things
 //
-//  Created by Brie Heutmaker on 5/18/16.
-//  Copyright © 2016 Brie Heutmaker. All rights reserved.
+//  Created by Brianna Lee on 5/18/16.
+//  Copyright © 2016 Exoteric Design. All rights reserved.
 //
 
 import Foundation
