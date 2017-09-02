@@ -16,7 +16,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SplashViewController" modalTransitionStyle="flipHorizontal" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cKe-Km-lHz" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1YL-aD-tjI">
-                        <rect key="frame" x="0.0" y="20" width="320" height="48"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -407,7 +407,7 @@
                                                         <action selector="cancel" destination="Bth-Se-3jn" eventType="primaryActionTriggered" id="VHP-qV-Gp6"/>
                                                     </connections>
                                                 </button>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New thing..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="erz-9R-e0W">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name This Thing..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="erz-9R-e0W">
                                                     <rect key="frame" x="16" y="8" width="198" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
@@ -971,7 +971,7 @@
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Xjw-kD-zNa">
                         <view key="titleView" contentMode="scaleToFill" id="hST-vh-p9V">
-                            <rect key="frame" x="40" y="7.5" width="240" height="33"/>
+                            <rect key="frame" x="40" y="5.5" width="240" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Te-dO-EVx">
@@ -1044,7 +1044,7 @@
                         <viewControllerLayoutGuide type="bottom" id="tFx-3Z-TBL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nV4-sX-cCC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -1075,7 +1075,7 @@
                     <tabBarItem key="tabBarItem" title="Shared" id="svL-zU-RSx"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="NcH-55-Z2u">
-                        <rect key="frame" x="0.0" y="20" width="320" height="100"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.1878944723" green="0.010705847080000001" blue="0.80206948140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -1094,7 +1094,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="pvz-1f-Z7h" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AuA-sj-0h4">
-                        <rect key="frame" x="0.0" y="20" width="320" height="48"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         <color key="tintColor" red="0.45561412709999999" green="0.12609093939999999" blue="0.78770833330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -1199,7 +1199,7 @@
                 <navigationController modalPresentationStyle="formSheet" id="Q8h-tD-XiV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" id="bvT-7A-DTU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zRN-qH-vpq">
-                        <rect key="frame" x="0.0" y="20" width="320" height="48"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.45561412709999999" green="0.12609093939999999" blue="0.78770833330000001" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
@@ -1217,7 +1217,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="g6Z-X6-WaO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="WvL-u6-rnw">
-                        <rect key="frame" x="0.0" y="20" width="320" height="100"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1235,7 +1235,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="407-nb-JKV" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="cse-1V-ewI">
-                        <rect key="frame" x="0.0" y="20" width="320" height="100"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

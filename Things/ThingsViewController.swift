@@ -40,6 +40,17 @@ class ThingsViewController: EDTableViewController, UITableViewDataSource, UITabl
         setThingsObservers()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        guard let indexPath = selectedIndexPath else {
+            return
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        selectedIndexPath = nil
+    }
+    
     private func setThingsObservers() {
         guard let uid = AppState.shared.uid else {
             return
@@ -116,9 +127,8 @@ class ThingsViewController: EDTableViewController, UITableViewDataSource, UITabl
             fatalError()
         }
         
-        newThingCell.newThingTextField.placeholder = "New thing..."
+        newThingCell.newThingTextField.placeholder = "Name This Thing..."
         newThingCell.newThingTextField.becomeFirstResponder()
-        
     }
     
     
@@ -248,7 +258,6 @@ class ThingsViewController: EDTableViewController, UITableViewDataSource, UITabl
         }
         
         selectedIndexPath = nil
-        performSegue(withIdentifier: SegueKey.showDetail, sender: nil)
     }
     
     //MARK: NewThingCellDelegate
